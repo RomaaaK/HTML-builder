@@ -2,6 +2,10 @@ const { stdin, stdout, exit } = process;
 const fs = require('fs');
 const path = require('path');
 
+fs.writeFile(path.resolve(__dirname, 'userData.txt'), '', (err) => {
+  if (err) console.log(err);
+});
+
 stdout.write('Для выхода напиши exit или сочетание клавиш ctr + c \n');
 stdout.write('Введите текст' + '\n' + '> ');
 
