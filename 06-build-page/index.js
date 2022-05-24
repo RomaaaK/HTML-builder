@@ -41,6 +41,8 @@ try {
   })();
 
   (async () => {
+    await fs.rm(path.resolve(__dirname, 'project-dist', 'assets'), { recursive: true, force: true });
+
     const assets = await fs.readdir(assetsDir);
     for (const a of assets) {
       const pathFile = path.resolve(assetsDir, a);
