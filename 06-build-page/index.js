@@ -42,17 +42,21 @@ try {
 
   (async () => {
     await fs.rm(path.resolve(__dirname, 'project-dist', 'assets'), { recursive: true, force: true });
+    await fs.mkdir(path.resolve(assetsDist), {recursive: true});
 
     const assets = await fs.readdir(assetsDir);
     for (const a of assets) {
       const pathFile = path.resolve(assetsDir, a);
-      const infoFile = await fs.stat(assetsDir, a);
+      const infoFile = await fs.stat(pathFile);
       if (infoFile.isDirectory()) {
         await fs.mkdir(path.resolve(assetsDist, a), {recursive: true});
         const files = await fs.readdir(pathFile);
         for (const file of files) {
           await fs.copyFile(path.resolve(pathFile, file), path.resolve(assetsDist, a, file));
         }
+      } else {
+        
+        await fs.copyFile(path.resolve(assetsDir, a), path.resolve(assetsDist, a),);
       }
     }
     console.log('copy files done');
